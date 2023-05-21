@@ -1,0 +1,21 @@
+{
+  "name": "encode",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "turbo run dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@nestjs/swagger": "^6.3.0"
+  },
+  "devDependencies": {
+    "turbo": "^1.9.8"
+  },
+  "workspaces": [
+    "apps/*"
+  ]
+}
