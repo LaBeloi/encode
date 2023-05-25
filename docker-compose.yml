@@ -6,12 +6,16 @@ services:
     restart: unless-stopped
     volumes:
       - database-storage:/var/lib/postgresql/data
+    build: .
     environment:
       POSTGRES_USER: username
       POSTGRES_PASSWORD: password
       POSTGRES_DB: turbo
+    expose:
+      - "5433"
     ports:
-      - 5432:5432
+      - "5433:5433"
+    command: -p 5433
 
 volumes:
   database-storage:

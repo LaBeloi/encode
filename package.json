@@ -4,13 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "postinstall": "pnpm prisma generate",
     "dev": "turbo run dev"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@nestjs/swagger": "^6.3.0"
+    "@nestjs/swagger": "^6.3.0",
+    "@prisma/client": "4.14.1",
+    "prisma": "^4.14.1"
   },
   "devDependencies": {
     "turbo": "^1.9.8"
