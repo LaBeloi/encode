@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "postinstall": "pnpm prisma generate",
+    "generate": "pnpm prisma generate",
+    "db:push": "turbo run db:push",
+    "db:seed": "turbo run db:seed",
+    "build": "turbo run build",
     "dev": "turbo run dev"
   },
   "keywords": [],
