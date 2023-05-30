@@ -3,7 +3,7 @@ import {
   Injectable,
   OnModuleInit,
 } from '@nestjs/common';
-import { PrismaClient } from 'database';
+import { PrismaClient } from '@prisma/client';
 
 export type OnShutdownCallback = () => Promise<void>;
 

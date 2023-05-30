@@ -4,16 +4,15 @@
   "globalEnv": ["NODE_ENV"],
   "pipeline": {
     "build": {
-      "dependsOn": ["^generate", "db:seed"],
+      "dependsOn": ["^generate"],
       "cache": false
     },
     "dev": {
       "cache": false
     },
     "db:push": {},
-    "db:seed": {},
-    "generate": {
-      "dependsOn": ["^generate"]
-    }
+    "db:migrate:dev":{},
+    "postinstall": {},
+    "studio":{}
   }
 }

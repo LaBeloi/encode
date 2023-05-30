@@ -5,6 +5,9 @@ CREATE TYPE "CipherTypes" AS ENUM ('Caesar', 'XOR');
 CREATE TABLE "users" (
     "id" UUID NOT NULL,
     "username" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "hash" TEXT NOT NULL,
+    "hashedRt" TEXT,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3),
 
@@ -24,6 +27,9 @@ CREATE TABLE "messages" (
 
 -- CreateIndex
 CREATE UNIQUE INDEX "users_id_key" ON "users"("id");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "messages_id_key" ON "messages"("id");
