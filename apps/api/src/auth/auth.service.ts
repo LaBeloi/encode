@@ -107,8 +107,8 @@ export class AuthService {
           email,
         },
         {
-          // 15 minutes
-          expiresIn: 60 * 15,
+          // 3 minutes
+          expiresIn: 60 * 3,
           secret: 'at-secret',
         },
       ),
@@ -118,8 +118,8 @@ export class AuthService {
           email,
         },
         {
-          // day
-          expiresIn: 60 * 60 * 24,
+          // hour
+          expiresIn: 60 * 60,
           secret: 'rt-secret',
         },
       ),

@@ -6,17 +6,8 @@ import { ListOfMessages } from "../../store/store";
 import CustomSelect from "../../components/Select/Select";
 import { XOR } from "../../../xor.ts";
 import { Caesar } from "../../../caesar.ts";
+import {CipherTypes, Message} from '@prisma/client';
 
-export enum CipherTypes {
-  'Caesar' = 'Caesar',
-  'XOR' = 'XOR'
-}
-
-export interface MessageItem {
-  message: string,
-  cipher: CipherTypes,
-  shiftQuantity?: number
-}
 
 export function Encode() {
   const [listOfMessages, addToListOFMessages] = useRecoilState(ListOfMessages);
@@ -29,16 +20,20 @@ export function Encode() {
     setIsCaesar(!!(type && type === CipherTypes.Caesar))
   }, [type])
 
+  // TODO: change logic
   const add = () => {
     if (message && type) {
       const cipher = type as CipherTypes
 
-      const result: MessageItem = {
+      const result: Message = {
+        userId: '1251236127324324234723',
+        shift: 0,
+        id: '8639420234523402346',
         message,
-        cipher
+        coding_type: cipher
       }
       if (type === CipherTypes.Caesar) {
-        result.shiftQuantity = shift ?? 0
+        result.shift = shift ?? 0
         console.log(Caesar(message, shift ?? 0));
       } else {
         console.log(XOR(message))

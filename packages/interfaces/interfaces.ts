@@ -8,3 +8,14 @@ export interface UserJwt {
   email: string;
   refreshToken?: string
 }
+
+export interface User {
+    email: string;
+    password: string;
+    username: string;
+}
+
+export interface FieldError {
+  field: string;
+  error: string;
+}

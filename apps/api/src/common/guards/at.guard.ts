@@ -16,9 +16,6 @@ export class AtGuard extends AuthGuard('jwt') {
 
     if (isPublic) return true;
 
-    // TODO: fix error with local rxjs
-
-    return true;
-    // return super.canActivate(context);
+    return super.canActivate(context);
   }
 }
