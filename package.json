@@ -1,0 +1,32 @@
+{
+  "name": "encode",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "prisma": {
+    "schema": "prisma/schema.prisma"
+  },
+  "scripts": {
+    "studio": "prisma studio",
+    "postinstall": "prisma migrate dev && prisma db push && prisma generate",
+    "generate": "prisma generate",
+    "db:migrate:dev": "prisma migrate dev",
+    "db:push": "prisma db push",
+    "build": "turbo run build",
+    "dev": "turbo run dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@nestjs/swagger": "^6.3.0",
+    "@prisma/client": "4.14.1"
+  },
+  "devDependencies": {
+    "prisma": "^4.14.1",
+    "turbo": "^1.9.8"
+  },
+  "workspaces": [
+    "apps/*"
+  ]
+}
