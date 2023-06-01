@@ -14,7 +14,6 @@ export default function NumberField(props: NumberProps) {
   return <TextField
     {...props}
     onKeyDownCapture={(e) => {
-      console.log(e.key)
       if (e.key === 'Enter') {
         props.onChange(Number(value))
       }
@@ -27,7 +26,6 @@ export default function NumberField(props: NumberProps) {
     size="small"
     value={Number.isNaN(value) ? '' : value}
     onChange={(e) => {
-      console.log(e)
       setValue(e.target.value)}}
     autoComplete="off"
     onBlur={() => {

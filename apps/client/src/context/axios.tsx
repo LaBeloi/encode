@@ -20,7 +20,6 @@ export const AxiosProvider: FC<PropsWithChildren> = (props) => {
     (e) => {
       if (e instanceof AxiosError) {
         if (e.response?.status === 401) {
-          console.log(e)
           window.location.href = '/login';
           return;
         }

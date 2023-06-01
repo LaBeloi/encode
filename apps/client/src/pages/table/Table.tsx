@@ -2,7 +2,6 @@ import { List } from "@mui/material";
 import { useRecoilValue } from "recoil";
 import { ListOfMessages } from "../../store/store";
 import { MessageItem } from "./MessageItem";
-import { Suspense } from "react";
 
 export function Table() {
   const listOfMessages = useRecoilValue(ListOfMessages);
@@ -16,8 +15,6 @@ export function Table() {
       justifyContent: 'center',
     }}
   >
-    <Suspense fallback={"list loading ..."}>
-    {listOfMessages.map((item, index) => <MessageItem index={index} item={item} />)}
-    </Suspense>
+    {listOfMessages.map((item) => <MessageItem key={item.id} index={item.id} item={item} />)}
   </List>
 }

@@ -1,8 +1,8 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import NumberField from "../../components/Number/Number";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { SnackbarState, UserAtom } from "../../store/store";
+import { useSetRecoilState } from "recoil";
+import { SnackbarState } from "../../store/store";
 import CustomSelect from "../../components/Select/Select";
 import {CipherTypes} from '@prisma/client';
 import { useAddMessage } from "../../hooks/useAddMessage.ts";
@@ -10,7 +10,6 @@ import { useAddMessage } from "../../hooks/useAddMessage.ts";
 
 export function Encode() {
   const setSnackBar = useSetRecoilState(SnackbarState);
-  const user = useRecoilValue(UserAtom);
   const { mutate } = useAddMessage();
   const [isCaesar, setIsCaesar] = useState<boolean>(false);
   const [message,setMessage] = useState<string>('');
@@ -32,7 +31,6 @@ export function Encode() {
         })
       } else {
         await mutate({
-          userId: user.id,
           message,
           coding_type: type as CipherTypes,
           shift: shift ?? 0

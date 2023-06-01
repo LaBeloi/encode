@@ -1,14 +1,14 @@
 import { ListItem, Card, Box, Button } from "@mui/material";
 import { Message } from "@prisma/client";
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import { Suspense, useState } from "react";
+import { useState } from "react";
 import { useRemoveMessage } from "../../hooks/useRemoveMessage";
 import { useAxios } from "../../context/axios";
 import { useLocalTokens } from "../../hooks/useLocalTokens";
 
 interface MessageItemProp {
   item: Message,
-  index: number,
+  index: string
 }
 
 export function MessageItem(props: MessageItemProp) {
@@ -38,7 +38,6 @@ export function MessageItem(props: MessageItemProp) {
   const encode = () => setText(props.item.message);
 
   return (
-    <Suspense fallback="loading...">
       <ListItem key={props.index}>
         <Card
           sx={{
@@ -68,6 +67,5 @@ export function MessageItem(props: MessageItemProp) {
           </Box>
         </Card>
       </ListItem>
-    </Suspense>
   )
 }

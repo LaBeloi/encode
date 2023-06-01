@@ -3,8 +3,6 @@ import { useAxios } from "../context/axios";
 import { User, UserResponse } from 'interfaces';
 import { useNavigate } from "react-router-dom";
 import { useLocalTokens } from "./useLocalTokens";
-import { useSetRecoilState } from "recoil";
-import { UserAtom } from "../store/store";
 
 enum Target {
   'signup' = 'signup',
@@ -13,7 +11,6 @@ enum Target {
 
 export function useLogin() {
   const [_, setValue] = useLocalTokens();
-  const setUser = useSetRecoilState(UserAtom);
   const navigate = useNavigate();
   const axios = useAxios();
   
@@ -29,7 +26,6 @@ export function useLogin() {
     {
       onSuccess: (data) => {
         setValue(data.tokens)
-        setUser(data.user)
         navigate('/');
       }
     }
