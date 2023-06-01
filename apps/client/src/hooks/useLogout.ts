@@ -9,6 +9,7 @@ export function useLogout() {
   const axios = useAxios();
 
   return useMutation(
+    ['logout'],
     async (refresh_token: string) => {
       (await axios.post('/api/auth/logout', {}, {
         headers: {

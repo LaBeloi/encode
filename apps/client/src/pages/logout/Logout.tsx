@@ -7,7 +7,12 @@ export function Logout() {
   const { mutate } = useLogout();
 
   return (
-    <Button 
+    <Button
+      sx={{
+        position: 'fixed',
+        top: '3rem',
+        left: '3rem',
+      }}
       variant="contained" 
       onClick={() => mutate(value?.refresh_token ?? '')}
     >

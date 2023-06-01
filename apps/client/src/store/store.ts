@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { Message } from '@prisma/client';
+import { Message, User } from '@prisma/client';
 import { SnackbarProps } from "@mui/material";
 import { SnackbarAlertSeverity } from "../components/SnackbarAlert/SnackbarAlert";
 
@@ -11,6 +11,10 @@ export type SnackbarStateProps = Pick<
 export const ListOfMessages = atom<Message[]>({
   key: 'listOfMessages',
   default: []
+})
+
+export const UserAtom = atom<User>({
+  key: 'user'
 })
 
 export const SnackbarState = atom<SnackbarStateProps>({

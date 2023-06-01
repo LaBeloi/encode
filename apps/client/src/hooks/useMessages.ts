@@ -7,8 +7,6 @@ export function useMessages() {
   const [value] = useLocalTokens();
   const axios = useAxios();
 
-  console.log(value);
-
   return useQuery(
     ['messages'],
     async () => {

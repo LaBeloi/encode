@@ -6,7 +6,7 @@ import {
 import { AuthDto } from '../dto';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
-import { Tokens } from 'interfaces';
+import { Tokens, UserResponse } from 'interfaces';
 import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
@@ -16,7 +16,7 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async signup(dto: AuthDto): Promise<Tokens> {
+  async signup(dto: AuthDto): Promise<UserResponse> {
     const hash = await this.hashData(dto.password);
 
     const newUser = await this.prisma.user.create({
@@ -28,10 +28,13 @@ export class AuthService {
     });
     const tokens = await this.signTokens(newUser.id, newUser.email);
     await this.updateRtHash(newUser.id, tokens.refresh_token);
-    return tokens;
+    return {
+      user: newUser,
+      tokens,
+    };
   }
 
-  async signin(dto: AuthDto): Promise<Tokens> {
+  async signin(dto: AuthDto): Promise<UserResponse> {
     const user = await this.prisma.user.findUnique({
       where: {
         email: dto.email,
@@ -47,7 +50,10 @@ export class AuthService {
 
     const newTokens = await this.signTokens(user.id, user.email);
     await this.updateRtHash(user.id, newTokens.refresh_token);
-    return newTokens;
+    return {
+      user,
+      tokens: newTokens,
+    };
   }
 
   async logout(userId: string): Promise<void> {
@@ -64,7 +70,7 @@ export class AuthService {
     });
   }
 
-  async refresh(userId: string, refresh_token: string): Promise<Tokens> {
+  async refresh(userId: string, refresh_token: string): Promise<UserResponse> {
     const user = await this.prisma.user.findUnique({
       where: {
         id: userId,
@@ -80,7 +86,10 @@ export class AuthService {
 
     const tokens = await this.signTokens(user.id, user.email);
     await this.updateRtHash(user.id, user.hashedRt);
-    return tokens;
+    return {
+      user,
+      tokens,
+    };
   }
 
   async updateRtHash(userId: string, refresh_token: string) {
@@ -107,8 +116,8 @@ export class AuthService {
           email,
         },
         {
-          // 3 minutes
-          expiresIn: 60 * 3,
+          // 30 minutes
+          expiresIn: 60 * 30,
           secret: 'at-secret',
         },
       ),
@@ -118,8 +127,8 @@ export class AuthService {
           email,
         },
         {
-          // hour
-          expiresIn: 60 * 60,
+          // day
+          expiresIn: 60 * 60 * 24,
           secret: 'rt-secret',
         },
       ),

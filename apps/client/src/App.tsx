@@ -1,13 +1,13 @@
-import { ThemeProvider, colors, createTheme } from "@mui/material";
+import { Box, ThemeProvider, colors, createTheme } from "@mui/material";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { RecoilRoot } from "recoil";
-import { EncodeLayout } from "./pages/encodeLayout/EncodeLayout";
 import { Login } from "./pages/login/Login";
 import { NotFound } from "./pages/not-found/NotFound";
 import HomePage from './pages/home/Home';
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { SnackbarAlert } from "./components/SnackbarAlert/SnackbarAlert";
 import { AxiosProvider } from "./context/axios";
+import { Layout } from "./pages/layout/Layout";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -34,9 +34,9 @@ export function App() {
             <Routes>
               <Route path="/" element={<HomePage />} />
               
-              <Route path="/encode" element={<EncodeLayout />}/>
+              <Route path="encode" element={<Layout />}/>
               <Route path="login" element={<Login/>}/>
-              <Route path="/not-found" element={<NotFound />}/>
+              <Route path="not-found" element={<NotFound />}/>
             
               <Route path="*" element={<Navigate to="/not-found" />} />
             </Routes>

@@ -1,16 +1,17 @@
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import NumberField from "../../components/Number/Number";
-import { useRecoilState } from "recoil";
-import { ListOfMessages } from "../../store/store";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { SnackbarState, UserAtom } from "../../store/store";
 import CustomSelect from "../../components/Select/Select";
-import { XOR } from "../../../xor.ts";
-import { Caesar } from "../../../caesar.ts";
-import {CipherTypes, Message} from '@prisma/client';
+import {CipherTypes} from '@prisma/client';
+import { useAddMessage } from "../../hooks/useAddMessage.ts";
 
 
 export function Encode() {
-  const [listOfMessages, addToListOFMessages] = useRecoilState(ListOfMessages);
+  const setSnackBar = useSetRecoilState(SnackbarState);
+  const user = useRecoilValue(UserAtom);
+  const { mutate } = useAddMessage();
   const [isCaesar, setIsCaesar] = useState<boolean>(false);
   const [message,setMessage] = useState<string>('');
   const [type, setType] = useState<string>();
@@ -20,29 +21,37 @@ export function Encode() {
     setIsCaesar(!!(type && type === CipherTypes.Caesar))
   }, [type])
 
-  // TODO: change logic
-  const add = () => {
+  const add = async () => {
     if (message && type) {
-      const cipher = type as CipherTypes
-
-      const result: Message = {
-        userId: '1251236127324324234723',
-        shift: 0,
-        id: '8639420234523402346',
-        message,
-        coding_type: cipher
-      }
-      if (type === CipherTypes.Caesar) {
-        result.shift = shift ?? 0
-        console.log(Caesar(message, shift ?? 0));
+      if (type === CipherTypes.Caesar && !shift) {
+        setSnackBar({
+          open: true,
+          title: 'Validation error',
+          message: <Typography>Shift: shift required in Caesar coding type</Typography>,
+          severity: 'error',
+        })
       } else {
-        console.log(XOR(message))
+        await mutate({
+          userId: user.id,
+          message,
+          coding_type: type as CipherTypes,
+          shift: shift ?? 0
+        })
+        setIsCaesar(false);
+        setMessage('');
+        setType(undefined);
+        setShift(0)
       }
-      addToListOFMessages([...listOfMessages, result])
-      setIsCaesar(false);
-      setMessage('');
-      setType(undefined);
-      setShift(0)
+    } else {
+      setSnackBar({
+        open: true,
+        title: 'Validation error',
+        message: <Typography>
+          Message: is required;
+          Type: is required
+        </Typography>,
+        severity: 'error',
+      })
     }
   }
 

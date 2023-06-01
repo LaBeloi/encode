@@ -1,6 +1,8 @@
-import { List, ListItem, Box, Button, Card } from "@mui/material";
+import { List } from "@mui/material";
 import { useRecoilValue } from "recoil";
 import { ListOfMessages } from "../../store/store";
+import { MessageItem } from "./MessageItem";
+import { Suspense } from "react";
 
 export function Table() {
   const listOfMessages = useRecoilValue(ListOfMessages);
@@ -14,22 +16,8 @@ export function Table() {
       justifyContent: 'center',
     }}
   >
-    {listOfMessages.map((item, key) => 
-      <ListItem key={key}>
-        <Card
-          sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            width: 'auto',
-            minWidth: '30rem',
-            padding: '1rem',
-          }}
-        >
-        <Box>{item.message}</Box>
-        <Button variant="contained" onClick={() => console.log(item)}>Decode</Button>
-        </Card>
-      </ListItem>
-    )}
+    <Suspense fallback={"list loading ..."}>
+    {listOfMessages.map((item, index) => <MessageItem index={index} item={item} />)}
+    </Suspense>
   </List>
 }
