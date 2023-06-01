@@ -12,6 +12,8 @@ Steps to run project:
 
 - `pnpm i` install all packages, do migrations to database, generate Prisma client.
 
+Tip: in case of error with Prisma (found issue with pnpm and prisma) try to delete global node_modules and reinstall dependency.
+
 - `pnpm dev` run project
 
 Ports:
