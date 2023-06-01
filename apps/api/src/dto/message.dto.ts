@@ -10,10 +10,6 @@ import {
 
 export class MessageDto {
   @IsNotEmpty()
-  @IsUUID()
-  userId: string;
-
-  @IsNotEmpty()
   @IsString()
   message: string;
 

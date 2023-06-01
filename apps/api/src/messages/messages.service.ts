@@ -21,8 +21,6 @@ export class MessagesService {
   }
 
   async decodeMessage(messageId: string) {
-    console.log('decoding = > ', messageId);
-
     if (!messageId) {
       throw new BadRequestException('messageId required');
     }
@@ -38,8 +36,7 @@ export class MessagesService {
     return this.xorService.xor_coding(message);
   }
 
-  async encodeMessage(message: MessageDto) {
-    console.log('encode message => ', message);
+  async encodeMessage(message: MessageDto, userId: string) {
     let newMessage = '';
 
     if (message.coding_type === CipherTypes.Caesar) {
@@ -57,7 +54,10 @@ export class MessagesService {
     };
 
     return this.prisma.message.create({
-      data,
+      data: {
+        ...data,
+        userId,
+      },
     });
   }
 

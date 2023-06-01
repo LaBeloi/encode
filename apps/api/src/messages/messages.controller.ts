@@ -18,13 +18,15 @@ export class MessagesController {
   }
 
   @Post('/create')
-  createMessage(@Body() message: MessageDto) {
-    return this.messagesService.encodeMessage(message);
+  createMessage(
+    @GetCurrentUser('sub') userId: string,
+    @Body() message: MessageDto,
+  ) {
+    return this.messagesService.encodeMessage(message, userId);
   }
 
   @Delete(':id')
   deleteMessage(@Param('id') messageId: string) {
-    console.log(messageId);
     return this.messagesService.deleteMessage(messageId);
   }
 }

@@ -28,7 +28,6 @@ export interface FieldError {
 }
 
 export interface MessageRequest {
-  userId: string;
   message: string;
   coding_type: CipherTypes;
   shift?: number;
